@@ -12,7 +12,7 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        hello world
+        hello world 123
       </main>
     </div>
   )
