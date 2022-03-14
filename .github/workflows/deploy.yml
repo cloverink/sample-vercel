@@ -14,21 +14,24 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '16.13.1'
-          cache: 'yarn'
 
-      - name: "Build"
+      - name: "Install"
         run: yarn install
 
       - name: "Build"
         run: yarn build
 
-      - name: "Test"
-        run: ls -la
+      - uses: amondnet/vercel-action@v19
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }} # Required
+          vercel-args: '--prod' #Optional
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID}}  #Required
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID}} #Required
 
-      - name: "Deploy to Vercel"
-        run: |
-          npx vercel --token ${VERCEL_TOKEN} --prod
-        env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      # - name: "Deploy to Vercel"
+      #   run: |
+      #     npx vercel --token ${VERCEL_TOKEN} --prod
+      #   env:
+      #     VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      #     VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+      #     VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
