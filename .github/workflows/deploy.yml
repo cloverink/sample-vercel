@@ -16,6 +16,9 @@ jobs:
         with:
           node-version: '16.13.1'
 
+      - name: "Build"
+        run: yarn build
+
       - name: "Deploy to Vercel"
         run: |
           npx vercel --token ${VERCEL_TOKEN} --prod
