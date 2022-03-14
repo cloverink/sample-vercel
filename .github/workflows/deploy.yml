@@ -21,6 +21,9 @@ jobs:
       - name: "Build"
         run: yarn build
 
+      - name: "Env"
+        run: "echo FOO=456 > .env"
+
       - name: "Deploy to Vercel"
         run: |
           npx vercel --token ${VERCEL_TOKEN} --prod
