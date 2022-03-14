@@ -2,5 +2,11 @@
   "github": {
     "enabled": false,
     "silent": true
-  }
+  },
+  "builds": [
+    {
+      "src": ".next",
+      "use": "@vercel/static"
+    }
+  ]
 }
