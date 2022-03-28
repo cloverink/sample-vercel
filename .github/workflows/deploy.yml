@@ -11,9 +11,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v3
         with:
-          node-version: '16.13.1'
+          node-version: 14.18.0
 
       # - name: "Install"
       #   run: yarn install
@@ -21,13 +21,10 @@ jobs:
       # - name: "Build"
       #   run: yarn build
 
-      - name: "Env"
-        run: "echo FOO=456 > .env"
-
-      - name: "Deploy to Vercel"
-        run: |
-          npx vercel --token ${VERCEL_TOKEN} --prod
-        env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      # - name: "Deploy to Vercel"
+      #   run: |
+      #     npx vercel --token ${VERCEL_TOKEN} --prod
+      #   env:
+      #     VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      #     VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+      #     VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}

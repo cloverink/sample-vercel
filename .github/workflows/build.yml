@@ -16,15 +16,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v3
         with:
-          node-version: '16.13.1'
-
-      # - name: "Install"
-      #   run: yarn install
-
-      # - name: "Build"
-      #   run: yarn build
+          node-version: 14.18.0
 
       - name: "Env"
         run: "echo FOO=456 > .env"
