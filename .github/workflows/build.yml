@@ -20,6 +20,17 @@ jobs:
         with:
           node-version: 14.18.0
 
+      - name: "Deploy to Vercel"
+        id: deploy
+        run: |
+          npx vercel --token ${VERCEL_TOKEN} --prod > output.log
+          echo ::set-output name=OUTPUT::$(cat output.log)
+          echo DEPLOYED URL: $(cat vercel.json)
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+
       - uses: actions/github-script@v6
         name: "Add some comment"
         with:
@@ -28,15 +39,5 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: '👋 Thanks for reporting!'
+              body: 'Deployed URL: ${{ steps.vars.outputs.version }}'
             })
-
-      - name: "Deploy to Vercel"
-        run: |
-          npx vercel --token ${VERCEL_TOKEN} --prod > out.log
-          echo xxxxx
-          cat out.log
-        env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
