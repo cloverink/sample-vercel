@@ -2,6 +2,10 @@ name: "Deploy"
 
 env:
   NODE_VERSION: 16.13.1
+  WWW_NEXT_ENV: local
+  FOO: BAR
+  HELLO: WORLD
+
 
 on:
   push:
