@@ -1,8 +1,9 @@
 const log = require('npmlog')
 
 const run = () => {
-  log.info('sync-env')
-  console.log(process.env)
+  log.info('========= sync-env =========')
+  log.info('process.env.foo=', process.env.foo)
+  log.info('process.env.hello=', process.env.hello)
 }
 
 run()

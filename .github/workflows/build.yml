@@ -21,7 +21,7 @@ jobs:
       - name: "Deploy to Vercel"
         id: deploy
         run: |
-          npx vercel --prod --force --token ${VERCEL_TOKEN} > output.log
+          npx vercel deploy --prod --force --token ${VERCEL_TOKEN} > output.log
           echo ::set-output name=VERCEL_OUTPUT::$(cat output.log)
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
