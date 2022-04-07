@@ -1,8 +1,8 @@
 const log = require('npmlog')
 
 const run = () => {
-  log.info('wow')
-
+  log.info('sync-env')
+  console.log(process.env)
 }
 
 run()
