@@ -21,13 +21,8 @@ jobs:
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
 
-      - uses: actions/github-script@v6
-        name: "Add some comment"
+      - uses: actions-ecosystem/action-create-comment@v1
         with:
-          script: |
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: 'Deployed URL: ${{ steps.deploy.outputs.VERCEL_OUTPUT }}'
-            })
+          github_token: ${{ secrets.github_token }}
+          body: |
+            Hello, @${{ github.actor }}!
