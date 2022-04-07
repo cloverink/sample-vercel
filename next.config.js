@@ -1,10 +1,9 @@
-require("dotenv").config()
-
 const nextConfig = {
   reactStrictMode: true,
   env: {
-    foo: process.env.FOO,
-    start_server: new Date().toISOString()
+    foo: process.env.foo,
+    hello: process.env.hello,
+    hello1: process.env.hello1,
   }
 }
 
