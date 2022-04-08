@@ -18,6 +18,11 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v3
 
+      - name: test
+        run: |
+          echo ${GITHUB_SHA}
+          echo ${GITHUB_SHA::7}
+
       - name: "Deploy to Vercel"
         id: deploy
         run: |
@@ -36,5 +41,5 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: 'Deployed URL: ${{ steps.deploy.outputs.VERCEL_OUTPUT }}'
+              body: 'Deployed `${GITHUB_SHA::7}` URL: ${{ steps.deploy.outputs.VERCEL_OUTPUT }}'
             })
