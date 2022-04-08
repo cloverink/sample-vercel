@@ -41,5 +41,5 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: 'Deployed `${{ steps.vars.outputs.GIT_SHORT_SHA }} ${{GITHUB_SHA}}` URL: ${{ steps.deploy.outputs.VERCEL_OUTPUT }}'
+              body: 'Deployed `${{ steps.vars.outputs.GIT_SHORT_SHA }}` URL: ${{ steps.deploy.outputs.VERCEL_OUTPUT }}'
             })
