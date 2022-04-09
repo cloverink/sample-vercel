@@ -2,10 +2,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "npm run deploy:env && next build",
+    "build": "npm run sync:env && next build",
     "start": "next start",
     "lint": "next lint",
-    "deploy:env": "node deploy-env.js"
+    "sync:env": "node sync-env.js"
   },
   "dependencies": {
     "cross-env": "^7.0.3",

@@ -1,4 +1,4 @@
-name: "Deploy"
+name: "Build"
 
 # on:
 #   push:
@@ -11,8 +11,11 @@ on:
 
 jobs:
   vercel:
+    name: Deploy front-end
     runs-on: ubuntu-latest
-    name: "Deploy front-end"
+    environment:
+      name: development
+      url: ${{ steps.deploy.outputs.VERCEL_OUTPUT }}
 
     steps:
       - uses: actions/checkout@v2
@@ -21,20 +24,9 @@ jobs:
       - name: "Deploy to Vercel"
         id: deploy
         run: |
-          npx vercel --token ${VERCEL_TOKEN} --prod > output.log
+          npx vercel deploy --prod --force --token ${VERCEL_TOKEN} > output.log
           echo ::set-output name=VERCEL_OUTPUT::$(cat output.log)
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-
-      - uses: actions/github-script@v6
-        name: "Add some comment"
-        with:
-          script: |
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: 'Deployed URL: ${{ steps.deploy.outputs.VERCEL_OUTPUT }}'
-            })
