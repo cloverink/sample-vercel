@@ -11,8 +11,11 @@ on:
 
 jobs:
   vercel:
+    name: Deploy front-end
     runs-on: ubuntu-latest
-    name: "Deploy front-end"
+    environment:
+      name: develoopment
+      url: ${{ steps.deploy.outputs.VERCEL_OUTPUT }}
 
     steps:
       - uses: actions/checkout@v2
@@ -38,3 +41,4 @@ jobs:
               repo: context.repo.repo,
               body: 'Deployed URL: ${{ steps.deploy.outputs.VERCEL_OUTPUT }}'
             })
+
