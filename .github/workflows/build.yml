@@ -14,7 +14,7 @@ jobs:
     name: Deploy front-end
     runs-on: ubuntu-latest
     environment:
-      name: develoopment
+      name: development
       url: ${{ steps.deploy.outputs.VERCEL_OUTPUT }}
 
     steps:
