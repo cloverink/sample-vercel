@@ -17,7 +17,7 @@ jobs:
       name: development
       url: ${{ steps.deploy.outputs.VERCEL_OUTPUT }}
     if: |
-      !startsWith(github.actor, 'dependabot') && !startsWith(github.actor, 'renovate') && !startsWith(github.actor, 'cloverink')
+      !startsWith(github.actor, 'dependabot') && !startsWith(github.actor, 'renovate')
 
     steps:
       - uses: actions/checkout@v2
