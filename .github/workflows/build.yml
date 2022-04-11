@@ -16,22 +16,28 @@ jobs:
     environment:
       name: development
       url: ${{ steps.deploy.outputs.VERCEL_OUTPUT }}
+    if: |
+      !startsWith(github.actor, 'dependabot')
+      !startsWith(github.actor, 'renovate')
+
 
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v3
 
-      # - name: "Deploy to Vercel"
-      #   id: deploy
-      #   run: |
-      #     npx vercel deploy --prod --force --token ${VERCEL_TOKEN} > output.log
-      #     echo ::set-output name=VERCEL_OUTPUT::$(cat output.log)
-      #   env:
-      #     VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-      #     VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-      #     VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-
       - name: check
         run: |
           echo github.sha=${{github.sha}}
           echo github.actor=${{github.actor}}
+          ecoh github.head_ref=${{github.head_ref}}
+
+
+      - name: "Deploy to Vercel"
+        id: deploy
+        run: |
+          npx vercel deploy --prod --force --token ${VERCEL_TOKEN} > output.log
+          echo ::set-output name=VERCEL_OUTPUT::$(cat output.log)
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
