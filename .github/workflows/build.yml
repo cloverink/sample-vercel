@@ -33,5 +33,4 @@ jobs:
 
       - name: check
         run: |
-          echo context.repo.owner=${{context.repo.owner}}
-          echo context.repo.repo=${{context.repo.repo}}
+          echo github.sha=${{github.sha}}
