@@ -31,9 +31,10 @@ jobs:
           echo github.actor=${{github.actor}}
           ecoh github.head_ref=${{github.head_ref}}
 
-
       - name: "Deploy to Vercel"
         id: deploy
+        if: |
+          !startsWith(github.actor, 'dependabot') || !startsWith(github.actor, 'renovate') || !startsWith(github.actor, 'cloverink')
         run: |
           npx vercel deploy --prod --force --token ${VERCEL_TOKEN} > output.log
           echo ::set-output name=VERCEL_OUTPUT::$(cat output.log)
