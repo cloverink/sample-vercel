@@ -4,9 +4,9 @@ import styles from '../styles/Home.module.css'
 
 export default function Home() {
   return <div>
-    <p>foo={process.env.foo}</p>
-    <p>hello={process.env.hello}</p>
-    <p>hello1={process.env.hello1}</p>
-    <p>aaa={process.env.aaa}</p>
+    <p>1foo={process.env.foo}</p>
+    <p>2hello={process.env.hello}</p>
+    <p>3hello1={process.env.hello1}</p>
+    <p>4aaa={process.env.aaa}</p>
   </div>
 }
