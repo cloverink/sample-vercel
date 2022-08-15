@@ -31,8 +31,8 @@ jobs:
 
       - name: test hashicorp
         run: |
-          brew install hashicorp/tap/vault
-          vault -version
+          brew install consul-template
+          consul-template -v
 
       # - name: "Deploy to Vercel"
       #   id: deploy
