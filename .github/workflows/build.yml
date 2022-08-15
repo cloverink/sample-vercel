@@ -29,12 +29,17 @@ jobs:
           echo github.actor=${{github.actor}}
           echo github.head_ref=${{github.head_ref}}
 
-      - name: "Deploy to Vercel"
-        id: deploy
+      - name: test hashicorp
         run: |
-          npx vercel deploy --prod --force --token ${VERCEL_TOKEN} > output.log
-          echo ::set-output name=VERCEL_OUTPUT::$(cat output.log)
-        env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          brew install hashicorp/tap/vault
+          vault -version
+
+      # - name: "Deploy to Vercel"
+      #   id: deploy
+      #   run: |
+      #     npx vercel deploy --prod --force --token ${VERCEL_TOKEN} > output.log
+      #     echo ::set-output name=VERCEL_OUTPUT::$(cat output.log)
+      #   env:
+      #     VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      #     VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+      #     VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
