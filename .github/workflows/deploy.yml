@@ -1,11 +1,7 @@
 name: "Deploy"
 
 env:
-  NODE_VERSION: 16.13.1
-
-# on:
-#   push:
-#     branches: [ main ]
+  FOO: ''
 
 on:
   repository_dispatch:
@@ -16,9 +12,6 @@ jobs:
   vercel:
     name: Deploy ${{ github.event.client_payload.version }}
     runs-on: ubuntu-latest
-    # environment:
-    #   name: staging
-    #   url: ${{ steps.deploy.outputs.VERCEL_OUTPUT }}
 
     steps:
       - uses: actions/checkout@v3
@@ -31,12 +24,7 @@ jobs:
           echo ${{ github.event.client_payload.env }}
           echo ${{ github.event.client_payload.version }}
 
-      # - name: "Deploy to Vercel"
-      #   id: deploy
-      #   run: |
-      #     npx vercel deploy --prod --force --token ${VERCEL_TOKEN} > output.log
-      #     echo ::set-output name=VERCEL_OUTPUT::$(cat output.log)
-      #   env:
-      #     VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-      #     VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-      #     VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+
+      - name: Check
+        run:
+          exit 1
