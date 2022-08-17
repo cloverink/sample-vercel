@@ -1,4 +1,4 @@
-name: "Deploy"
+name: "Deploy ${{ github.event.client_payload.version }}"
 
 env:
   NODE_VERSION: 16.13.1
