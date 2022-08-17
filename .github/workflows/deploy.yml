@@ -38,5 +38,5 @@ jobs:
           env.FOO == 'BAR' || env.FOO == 'XXX'
         run: |
           echo ${{ env.FOO }}
-          ecoh x${{ env.BAR }}x
+          echo x${{ env.BAR }}x
 
