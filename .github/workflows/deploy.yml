@@ -1,36 +1,32 @@
 name: "Deploy"
 
-env:
-  DEPLOY_VERSION: ${{ github.event.client_payload.version }}
-  DEPLOY_ENV: ${{ github.event.client_payload.env }}
-
 on:
   repository_dispatch:
     types: deploy
 
 jobs:
   vercel:
-    name: Deploy ${{ env.DEPLOY_VERSION }}@${{ env.DEPLOY_ENV }}
+    name: Deploy ${{ github.event.client_payload.version }}
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-          ref: 'v${{ env.DEPLOY_VERSION }}'
+          ref: 'v${{ github.event.client_payload.version }}'
 
-      - name: Deploy ${{ env.DEPLOY_VERSION }}@${{ env.DEPLOY_ENV }}
+      - name: Deploy ${{ github.event.client_payload.version }}
         run: |
-          echo ${{ env.DEPLOY_ENV }}
-          echo ${{ env.DEPLOY_VERSION }}
+          echo ${{ github.event.client_payload.env }}
+          echo ${{ github.event.client_payload.version }}
 
       - name: Prepare env for uat
-        if: env.DEPLOY_ENV == 'uat'
+        if: github.event.client_payload.env == 'uat'
         run: |
           echo "FOO=BAR" >> $GITHUB_ENV
 
       - name: Prepare env for prod
-        if: env.DEPLOY_ENV == 'prod'
+        if: github.event.client_payload.env == 'prod'
         run: |
           echo "FOO=XXX" >> $GITHUB_ENV
 
