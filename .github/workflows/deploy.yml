@@ -38,6 +38,6 @@ jobs:
 
       - name: Check 2
         if: |
-          env.BAR == ""
+          env.BAR == ''
         run: |
           exit 1
