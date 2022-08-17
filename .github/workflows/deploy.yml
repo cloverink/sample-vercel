@@ -14,7 +14,7 @@ on:
 
 jobs:
   vercel:
-    name: Deploy front-end
+    name: Deploy ${{ github.event.client_payload.version }}
     runs-on: ubuntu-latest
     # environment:
     #   name: staging
@@ -26,7 +26,8 @@ jobs:
           fetch-depth: 0
           ref: ${{ github.event.client_payload.version }}
 
-      - run: |
+      - name: Deploy ${{ github.event.client_payload.version }}
+        run: |
           echo ${{ github.event.client_payload.env }}
           echo ${{ github.event.client_payload.version }}
 
