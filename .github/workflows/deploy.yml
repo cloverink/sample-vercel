@@ -31,7 +31,7 @@ jobs:
       - name: Prepare env for prod
         if: github.event.client_payload.env == 'prod'
         run: |
-          echo "FOO=BAR" >> $GITHUB_ENV
+          echo "FOO=XXX" >> $GITHUB_ENV
 
       - name: Check
         if: |
