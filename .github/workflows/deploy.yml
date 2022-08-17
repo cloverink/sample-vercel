@@ -16,9 +16,9 @@ jobs:
   vercel:
     name: Deploy front-end
     runs-on: ubuntu-latest
-    environment:
-      name: staging
-      url: ${{ steps.deploy.outputs.VERCEL_OUTPUT }}
+    # environment:
+    #   name: staging
+    #   url: ${{ steps.deploy.outputs.VERCEL_OUTPUT }}
 
     steps:
       - uses: actions/checkout@v3
