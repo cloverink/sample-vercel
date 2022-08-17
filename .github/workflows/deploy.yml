@@ -24,7 +24,18 @@ jobs:
           echo ${{ github.event.client_payload.env }}
           echo ${{ github.event.client_payload.version }}
 
+      - name: Prepare env for uat
+        if: github.event.client_payload.env == 'uat'
+        run: |
+          echo "::set-env name=FOO::BAR"
+
+      - name: Prepare env for prod
+        if: github.event.client_payload.env == 'prod'
+        run: |
+          echo "::set-env name=FOO::XXX"
 
       - name: Check
         run:
+          echo ${{ env.FOO }}
           exit 1
+
