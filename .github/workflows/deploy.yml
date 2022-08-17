@@ -3,6 +3,8 @@ name: "Deploy"
 on:
   repository_dispatch:
     types: deploy
+    inputs:
+
 
 
 jobs:
@@ -32,7 +34,8 @@ jobs:
           echo "FOO=BAR" >> $GITHUB_ENV
 
       - name: Check
-        run:
+        if: |
+          env.FOO == 'BAR'
+        run: |
           echo ${{ env.FOO }}
-          exit 1
 
