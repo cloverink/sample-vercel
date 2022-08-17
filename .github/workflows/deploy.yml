@@ -33,10 +33,14 @@ jobs:
         run: |
           echo "FOO=XXX" >> $GITHUB_ENV
 
-      - name: Check
+      - name: Check 1
         if: |
           env.FOO == 'BAR' || env.FOO == 'XXX'
         run: |
           echo ${{ env.FOO }}
-          echo x${{ env.BAR }}x
 
+      - name: Check 2
+        if: |
+          env.FOO == ""
+        run: |
+          exit 1
