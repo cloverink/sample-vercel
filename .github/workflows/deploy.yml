@@ -22,7 +22,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+        with:
+          fetch-depth: 0
+          ref: 'v1.0.0'
 
       - run: |
           echo ${{ github.event.client_payload.env }}
