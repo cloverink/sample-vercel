@@ -3,9 +3,6 @@ name: "Deploy"
 on:
   repository_dispatch:
     types: deploy
-    inputs:
-
-
 
 jobs:
   vercel:
@@ -41,6 +38,6 @@ jobs:
 
       - name: Check 2
         if: |
-          env.FOO == ""
+          env.BAR == ""
         run: |
           exit 1
