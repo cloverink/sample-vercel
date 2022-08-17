@@ -3,9 +3,14 @@ name: "Deploy"
 env:
   NODE_VERSION: 16.13.1
 
+# on:
+#   push:
+#     branches: [ main ]
+
 on:
-  push:
-    branches: [ main ]
+  repository_dispatch:
+    types: deploy
+
 
 jobs:
   vercel:
@@ -19,12 +24,15 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
 
-      - name: "Deploy to Vercel"
-        id: deploy
-        run: |
-          npx vercel deploy --prod --force --token ${VERCEL_TOKEN} > output.log
-          echo ::set-output name=VERCEL_OUTPUT::$(cat output.log)
-        env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      - run: |
+          echo ${{ github.event.client_payload }}
+
+      # - name: "Deploy to Vercel"
+      #   id: deploy
+      #   run: |
+      #     npx vercel deploy --prod --force --token ${VERCEL_TOKEN} > output.log
+      #     echo ::set-output name=VERCEL_OUTPUT::$(cat output.log)
+      #   env:
+      #     VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      #     VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+      #     VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
