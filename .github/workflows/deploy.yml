@@ -5,26 +5,50 @@ on:
     types: deploy
 
 jobs:
-  vercel:
-    name: Deploy ${{ github.event.client_payload.version }}
+  prepare:
+    name: Prepare Deploy ${{ github.event.client_payload.version }}
     runs-on: ubuntu-latest
+    steps:
+      - name: Check Payload
+        run: |
+          echo version=${{ github.event.client_payload.version }}
+          echo environment=${{ github.event.client_payload.env }}
+
+
+  deploy-pre-prod:
+    name: Deploy Pre Prod
+    runs-on: ubuntu-latest
+    environment:
+      name: Staging
+      url: ${{ steps.deploy.outputs.VERCEL_DEPLOY_URL }}
     if: github.event.client_payload.env == 'pre-production'
+    needs:
+      - prepare
     steps:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
           ref: 'v${{ github.event.client_payload.version }}'
 
-      - name: Deploy ${{ github.event.client_payload.version }}
-        run: |
-          echo ${{ github.event.client_payload.env }}
-          echo ${{ github.event.client_payload.version }}
+      - name: Deploying
+        id: deploy
+          echo ::set-output name=VERCEL_DEPLOY_URL::http://test.cloverink.com
 
-      - name: Prepare env for uat
-        if: github.event.client_payload.env == 'uat'
-        run: |
-          echo "FOO=BAR" >> $GITHUB_ENV
+  deploy-production:
+    name: Deploy Production
+    runs-on: ubuntu-latest
+    environment:
+      name: Staging
+      url: ${{ steps.deploy.outputs.VERCEL_DEPLOY_URL }}
+    if: github.event.client_payload.env == 'production'
+    needs:
+      - prepare
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: 'v${{ github.event.client_payload.version }}'
 
-      - name: Prepare env for prod
-        run: |
-          echo ${{ env.FOO }}
+      - name: Deploying
+        id: deploy
+          echo ::set-output name=VERCEL_DEPLOY_URL::http://test.cloverink.com
