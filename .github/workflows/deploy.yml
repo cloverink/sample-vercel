@@ -8,7 +8,7 @@ jobs:
   vercel:
     name: Deploy ${{ github.event.client_payload.version }}
     runs-on: ubuntu-latest
-
+    if: github.event.client_payload.env == 'pre-production'
     steps:
       - uses: actions/checkout@v3
         with:
@@ -26,12 +26,5 @@ jobs:
           echo "FOO=BAR" >> $GITHUB_ENV
 
       - name: Prepare env for prod
-        if: github.event.client_payload.env == 'prod'
-        run: |
-          echo "FOO=XXX" >> $GITHUB_ENV
-
-      - name: Check 1
-        if: |
-          env.FOO == 'BAR' || env.FOO == 'XXX'
         run: |
           echo ${{ env.FOO }}
